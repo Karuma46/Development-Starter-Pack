@@ -1,4 +1,19 @@
-#Development Starter Kit
-This is to get you up and running quickly on your new project.
+# DEVELOPMENT STARTUP KIT
 
-It consist of some gulp tasks such as compiling sass into css, minify css and js and concatenate js.
+## Installation
+
+* Clone repository to your Local directory
+`$ git clone https://github.com/Karuma46/Development-Starter-Pack.git`
+ 
+* Install nodeJs to get dependencies
+`$ npm install`
+  
+* Run server with live reload
+`$ gulp`
+
+## Features
+
+* Live reload server
+* Sass compiler
+* Minify CSS
+* Minify and Concatenate Js
