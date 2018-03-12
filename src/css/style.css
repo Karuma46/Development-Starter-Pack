@@ -1,2 +1,8 @@
-*{margin:0;padding:0}body{width:100%;height:100vh;text-align:center}: 100vh;
+* {
+  margin: 0px;
+  padding: 0px; }
+
+body {
+  width: 100%;
+  height: 100vh;
   text-align: center; }
