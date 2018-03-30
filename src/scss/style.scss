@@ -1,15 +1,3 @@
-*{
-  margin: 0px;
-  padding: 0px;
-}
-body{
-  width: 100%;
-  height: 100vh;
-  text-align: center;
-}
-
-
-
-
-
-
+@import 'includes/includes';
+@import 'layout/layout';
+@import 'mediaqueries/mediaQueries';

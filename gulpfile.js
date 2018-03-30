@@ -7,23 +7,23 @@ var cleanCss = require('gulp-clean-css');
 gulp.task('sass', function(){
   return gulp.src('src/scss/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('src/css'))
+    .pipe(gulp.dest('build/css'))
     .pipe(browserSync.stream());
 });
 
 gulp.task('cleanCss', function(){
-  return gulp.src('src/css/*.css')
+  return gulp.src('build/css/*.css')
     .pipe(cleanCss())
-    .pipe(gulp.dest('src/css'))
+    .pipe(gulp.dest('build/css'));
 });
 
 gulp.task('serve', ['sass', 'cleanCss'], function(){
   browserSync.init({
-    server: './src'
+    server: './build'
   });
   
   gulp.watch(['src/scss/*.scss'], ['sass', 'cleanCss']);
-  gulp.watch(['src/*.html']).on('change',browserSync.reload);
+  gulp.watch(['build/*.html']).on('change',browserSync.reload);
 });
 
 gulp.task('default', ['serve']);
