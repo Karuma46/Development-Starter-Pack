@@ -1,0 +1,1 @@
+const slider = 'This slides'
