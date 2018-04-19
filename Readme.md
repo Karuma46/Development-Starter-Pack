@@ -16,4 +16,6 @@
 * Live reload server
 * Sass compiler
 * Minify CSS
+* Babel transpiler
 * Minify and Concatenate Js
+

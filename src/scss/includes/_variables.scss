@@ -1,0 +1,27 @@
+%flex-row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+%flex-row-nowrap{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+%flex-col{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+%flex-col-nowrap{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+%box-sizing{
+  box-sizing: border-box;
+}

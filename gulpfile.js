@@ -5,7 +5,7 @@ var browserSync = require('browser-sync').create();
 var cleanCss = require('gulp-clean-css');
 var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
-
+var imagemin = require('gulp-imagemin');
 
 gulp.task('sass', function(){
   return gulp.src('src/scss/*.scss')
@@ -34,14 +34,24 @@ gulp.task('babel', () =>
         .pipe(gulp.dest('build/js'))
 );
 
-gulp.task('serve', ['sass', 'cleanCss', 'babel'], function(){
+
+gulp.task('imagemin', () =>
+    gulp.src('src/img/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('build/img'))
+);
+
+
+
+gulp.task('serve', ['sass', 'cleanCss', 'babel', 'imagemin'], function(){
   browserSync.init({
     server: './build'
   });
   
-  gulp.watch(['src/scss/*.scss'], ['sass', 'cleanCss']);
+  gulp.watch(['src/scss/*.scss', 'src/scss/includes/*.scss'], ['sass', 'cleanCss']);
   gulp.watch(['src/js/*.js'], ['babel']).on('change', browserSync.reload);
   gulp.watch(['build/*.html']).on('change',browserSync.reload);
+  gulp.watch(['src/img/*']).on('change', browserSync.reload);
 });
 
 gulp.task('default', ['serve']);
