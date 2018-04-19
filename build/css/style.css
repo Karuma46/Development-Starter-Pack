@@ -10,7 +10,9 @@ ul {
   list-style: none; }
 
 * {
-  font-family: "Source sans Pro"; }
+  font-family: "Source sans Pro";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
 
 body {
   margin: 0;
