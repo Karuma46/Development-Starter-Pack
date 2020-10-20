@@ -1,57 +1,44 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var browserSync = require('browser-sync').create();
-var cleanCss = require('gulp-clean-css');
-var babel = require('gulp-babel');
-var uglify = require('gulp-uglify');
-var imagemin = require('gulp-imagemin');
+const {series, src, dest, watch} = require('gulp')
+var bSync = require('browser-sync').create();
+var clean = require('gulp-clean-css')
+var pug = require('gulp-pug')
 
-gulp.task('sass', function(){
-  return gulp.src('src/scss/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('build/css'))
-    .pipe(browserSync.stream());
-});
+var sass = require('gulp-sass')
+sass.compiler = require('node-sass')
 
-gulp.task('cleanCss', function(){
-  return gulp.src('build/css/*.css')
-    .pipe(cleanCss())
-    .pipe(gulp.dest('build/css'));
-});
+const sassit = () => {
+    return src('src/scss/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(dest('build/css'))
+        .pipe(bSync.stream())
+}
 
-gulp.task('babel', () =>
-    gulp.src('src/js/*.js')
-        .pipe(babel({
-            presets: ['env']
-        }))
-        .on('error', function(e){
-          console.log('>>>> Error', e);
-          this.emit('end');
-        })
-        .pipe(concat('all.js'))
-        .pipe(uglify('all.js'))
-        .pipe(gulp.dest('build/js'))
-);
+const cleanCSS = () => {
+    return src('build/css/*.css')
+        .pipe(clean())
+        .pipe(dest('build/css'))
+}
 
+const pugify = () => {
+    return src('src/app/*.pug')
+    .pipe(pug())
+    .pipe(dest('build'))
+}
 
-gulp.task('imagemin', () =>
-    gulp.src('src/img/*')
-        .pipe(imagemin())
-        .pipe(gulp.dest('build/img'))
-);
+const serve = () => {
+    bSync.init({
+        server: './build'
+    });
 
+    watch([
+        'src/scss/*.scss',
+        'src/scss/**/*.scss'
+    ], 
+    series(sassit, cleanCSS))
 
+    watch([
+        'src/app/*.pug',
+    ], series(pugify, bSync.reload))
+}
 
-gulp.task('serve', ['sass', 'cleanCss', 'babel', 'imagemin'], function(){
-  browserSync.init({
-    server: './build'
-  });
-  
-  gulp.watch(['src/scss/*.scss', 'src/scss/includes/*.scss'], ['sass', 'cleanCss']);
-  gulp.watch(['src/js/*.js'], ['babel']).on('change', browserSync.reload);
-  gulp.watch(['build/*.html']).on('change',browserSync.reload);
-  gulp.watch(['src/img/*']).on('change', browserSync.reload);
-});
-
-gulp.task('default', ['serve']);
+exports.default = series(sassit, cleanCSS, pugify, serve)
