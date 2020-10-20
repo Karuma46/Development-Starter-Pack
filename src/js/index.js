@@ -5,7 +5,7 @@ class Header {
   }
 
   describeMe(){
-    console.log(`Hi, my name is ${name} and my number is ${age}`)
+    console.log(`Hi, my name is ${this.name} and my number is ${this.age}`)
   }
 }
 
