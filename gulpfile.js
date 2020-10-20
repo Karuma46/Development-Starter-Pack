@@ -58,4 +58,6 @@ const serve = () => {
     ], series(babely)).on('change', bSync.reload)
 }
 
-exports.default = series(sassit, babely, pugify, serve)
+
+exports.build = series(sassit, babely, pugify)
+exports.default = series(this.build,serve)
