@@ -24,5 +24,8 @@
     "node-sass": "^4.14.1",
     "webpack-stream": "^6.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "bootstrap": "^4.5.3"
+  }
 }

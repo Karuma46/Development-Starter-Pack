@@ -2,11 +2,19 @@ doctype html
 html
     head
         meta(charset="UFT-8")
+        meta(name="viewport" content="width=device-width,initial-scale=1")
         title Gulp dev starter kit
+        link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap')
         link(rel='stylesheet', href='css/style.css')
-    
-    body
-        h1 This is the Ultimate Prototyping Starter Kits
-
-        include partials/section.pug
         script(type='text/javascript', src='js/bundle.js')
+    
+    body.d-flex.flex-column.h-100
+        .container-fluid
+            .row
+                .col.text-center
+                    h1.font-weight-lighter
+                        | Development Starter Kit
+                    p
+                        | A simple starter pack to get you going right away on your next front-end project.
+            
+        include partials/footer.pug

@@ -1,13 +1,13 @@
 const {series, src, dest, watch} = require('gulp')
+var sass = require('gulp-sass')
+sass.compiler = require('node-sass')
 var bSync = require('browser-sync').create();
 var clean = require('gulp-clean-css')
 var pug = require('gulp-pug')
 var babel = require('gulp-babel')
 var concat = require('gulp-concat')
 var uglify = require('gulp-uglify')
-
-var sass = require('gulp-sass')
-sass.compiler = require('node-sass')
+var imagemin = require('gulp-imagemin')
 
 const sassit = () => {
     return src('src/scss/*.scss')
@@ -37,6 +37,21 @@ const babely = () => {
         .pipe(dest('build/js'))
 }
 
+const imgmin = () => {
+    return src('src/img/*')
+        .pipe(imagemin([
+            imagemin.mozjpeg({quality: 75, progressive: true}),
+            imagemin.optipng({optimizationLevel: 5}),
+            imagemin.svgo({
+                plugins: [
+                    {removeViewBox: true},
+                    {cleanupIDs: false}
+                ]
+            })
+        ]))
+        .pipe(dest('build/img'))
+}
+
 const serve = () => {
     bSync.init({
         server: './build'
@@ -46,6 +61,10 @@ const serve = () => {
         'src/scss/*.scss',
         'src/scss/**/*.scss'
     ], series(sassit)).on('change', bSync.reload)
+
+    watch([
+        'src/img/*'
+    ], series(imgmin)).on('change', bSync.reload)
 
     watch([
         'src/app/*.pug',
@@ -59,5 +78,5 @@ const serve = () => {
 }
 
 
-exports.build = series(sassit, babely, pugify)
+exports.build = series(sassit, babely, pugify, imgmin)
 exports.default = series(this.build,serve)
