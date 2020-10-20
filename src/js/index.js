@@ -4,11 +4,11 @@ class Header {
     this.age = age;
   }
 
-  describeMe(name, age){
+  describeMe(){
     console.log(`Hi, my name is ${name} and my number is ${age}`)
   }
 }
 
 
-var me = new Header;
-me.describeMe('Steve',24.6)
+var me = new Header('Steve',24.6);
+me.describeMe()
