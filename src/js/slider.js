@@ -1,1 +1,0 @@
-const slider = 'This slides'
